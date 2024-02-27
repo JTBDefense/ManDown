@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">ManDown</string>
+    <!-- description -->
+    <string name="app_desc">ManDown plugin</string>
+    <!-- application -->
+    <string name="stats">Azimuth: %1$.2f \nPitch: %2$.2f \nRoll: %2$.2f \nIs flat: %4$b \nInactive for (1): %5$d seconds\nInactive for (2): %6$d seconds</string>
+    <string name="inactivity_message">You are inactive for %1$d seconds already.</string>
+    <string name="inactivity_title">Inactivity Warning</string>
+    <string name="logo">Logo</string>
+    <string name="close">Close</string>
+    <string name="preferences_name">ManDown Preferences</string>
+    <string name="preferences_description">ManDown Preferences</string>
+    <string name="chat_message">I\'m inactive for %1$d seconds.</string>
+
+    <!-- Remote wipe confirmation dialog -->
+    <string name="wipe">Wipe Data</string>
+    <string name="locked">Locked</string>
+    <string name="zeroize_lock_both_switches_to_clear_content">Lock both switches to remotely wipe user data</string>
+    <string name="are_you_sure_wipe_data">Are you sure you want to remotely wipe user data?</string>
+    <string name="wipe_done">Data wipe has been committed.</string>
+    <string name="cancel">Cancel</string>
+</resources>

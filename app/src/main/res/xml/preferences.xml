@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.atakmap.android.gui.PanSwitchPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.ALLOW_REMOTE_WIPE"
+        android:summary="Allow for remote wipe of ATAK data on this device"
+        android:title="Allow remote wipe" />
+
+    <PreferenceCategory android:title="Interval 1" />
+
+    <com.atakmap.android.gui.PanEditTextPreference
+        android:defaultValue="60"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL1_TIME"
+        android:summary="Interval time[s]"
+        android:title="Define time for interval in seconds" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL1_MESSAGE"
+        android:summary="Send text message via TAK chat to other users the period expires"
+        android:title="Send text message" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL1_ALERT"
+        android:summary="Trigger alert when the period expires"
+        android:title="Trigger alert" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL1_WIPE"
+        android:summary="Wipe ATAK data when the period expires"
+        android:title="Wipe ATAK" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL1_IGNORE_FLAT"
+        android:summary="Ignore when the device is lying horizontally"
+        android:title="Ignore horizontal" />
+
+    <PreferenceCategory android:title="Interval 2" />
+
+    <com.atakmap.android.gui.PanEditTextPreference
+        android:defaultValue="300"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL2_TIME"
+        android:summary="Interval time[s]"
+        android:title="Define time for interval in seconds" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL2_MESSAGE"
+        android:summary="Send text message via TAK chat to other users the period expires"
+        android:title="Send text message" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL2_ALERT"
+        android:summary="Trigger alert when the period expires"
+        android:title="Trigger alert" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL2_WIPE"
+        android:summary="Wipe ATAK data when the period expires"
+        android:title="Wipe ATAK" />
+
+    <com.atakmap.android.gui.PanCheckBoxPreference
+        android:defaultValue="false"
+        android:key="com.jtbdefense.atak.mandown.preferences.INTERVAL2_IGNORE_FLAT"
+        android:summary="Ignore when the device is lying horizontally"
+        android:title="Ignore horizontal" />
+
+</PreferenceScreen>
