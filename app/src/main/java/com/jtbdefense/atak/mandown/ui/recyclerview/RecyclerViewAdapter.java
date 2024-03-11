@@ -1,18 +1,14 @@
-
 package com.jtbdefense.atak.mandown.ui.recyclerview;
 
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
-import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE;
-import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_UID;
 import static com.jtbdefense.atak.mandown.ui.ConfirmWipeDialog.showWipeConfirmationDialog;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +40,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         refreshUserList(getMapView().getRootGroup());
     }
 
+    private static boolean showMapItem(MapItem mapItem) {
+        MapTouchController.goTo(mapItem, true);
+        return true;
+    }
+
     public void refreshUserList(MapGroup group) {
         items.clear();
         for (MapItem item : group.getItemsRecursive()) {
@@ -56,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = layoutInflater.inflate(R.layout.marker_callsign_row, parent, false);
+        View v = layoutInflater.inflate(R.layout.wipe_list_row, parent, false);
         return new ViewHolder(v);
     }
 
@@ -86,11 +87,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private static boolean showMapItem(MapItem mapItem) {
-        MapTouchController.goTo(mapItem, true);
-        return true;
-    }
-
     @Override
     public int getItemCount() {
         return items.size();
@@ -101,7 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         final ImageView icon;
         final TextView callsign;
         final TextView lastUpdate;
-        final Button wipeButton;
+        final ImageButton wipeButton;
 
         public ViewHolder(View v) {
             super(v);

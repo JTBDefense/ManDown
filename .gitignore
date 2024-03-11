@@ -34,10 +34,6 @@ google-services.json
 
 # TAK related libs
 .takdev/plugin.properties
-app/build.gradle
 /app/libs/
-/app/libs4.8/
-app/proguard-gradle.txt
-gradle.properties
 app/build.gradle.bak
 *.aab

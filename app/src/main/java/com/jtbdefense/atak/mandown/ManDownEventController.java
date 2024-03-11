@@ -4,7 +4,8 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.ALLOW_REMOTE_WIPE_COT_KEY;
-import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.DETAILS_META_KEY_PERFORM_REMOTE_WIPE;
+import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD;
+import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID;
 import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.PERFORM_REMOTE_WIPE_COT_KEY;
 import static com.jtbdefense.atak.mandown.domain.Events.*;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.*;
@@ -23,7 +24,6 @@ import androidx.annotation.RequiresApi;
 
 import com.atakmap.android.cot.CotMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
-import com.atakmap.android.maps.MapItem;
 import com.atakmap.comms.ReportingRate;
 import com.atakmap.coremap.cot.event.CotDetail;
 import com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler;
@@ -77,10 +77,12 @@ public class ManDownEventController extends BroadcastReceiver {
 
     private void handlePerformRemoteWipe(Intent intent) {
         String uidToWipe = intent.getStringExtra(PERFORM_REMOTE_WIPE_UID);
+        String providedPassword = intent.getStringExtra(PERFORM_REMOTE_WIPE_PASSWORD);
         Log.d(TAG, "Handling PERFORM_REMOTE_WIPE event for UUID " + uidToWipe);
 
         CotDetail cd = new CotDetail(PERFORM_REMOTE_WIPE_COT_KEY);
-        cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE, uidToWipe);
+        cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, uidToWipe);
+        cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, providedPassword);
 
         performRemoteWipeCotHandler.toItemMetadata(getMapView().getSelfMarker(), null, cd);
         CotMapComponent.getInstance().addAdditionalDetail(cd.getElementName(), cd);

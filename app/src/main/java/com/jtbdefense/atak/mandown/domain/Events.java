@@ -10,5 +10,6 @@ public interface Events {
 
     String PERFORM_REMOTE_WIPE = "com.jtbdefense.atak.mandown.PERFORM_REMOTE_WIPE";
     String PERFORM_REMOTE_WIPE_UID = "com.jtbdefense.atak.mandown.PERFORM_REMOTE_WIPE_UID";
+    String PERFORM_REMOTE_WIPE_PASSWORD = "com.jtbdefense.atak.mandown.PERFORM_REMOTE_WIPE_PASSWORD";
 
 }

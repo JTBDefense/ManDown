@@ -6,6 +6,13 @@
         android:summary="Allow for remote wipe of ATAK data on this device"
         android:title="Allow remote wipe" />
 
+    <com.atakmap.android.gui.PanEditTextPreference
+        android:dependency="com.jtbdefense.atak.mandown.preferences.ALLOW_REMOTE_WIPE"
+        android:key="com.jtbdefense.atak.mandown.preferences.REMOTE_WIPE_PASSWORD"
+        android:inputType="textPassword"
+        android:summary="Provide remote wipe password"
+        android:title="Remote wipe password" />
+
     <PreferenceCategory android:title="Interval 1" />
 
     <com.atakmap.android.gui.PanEditTextPreference

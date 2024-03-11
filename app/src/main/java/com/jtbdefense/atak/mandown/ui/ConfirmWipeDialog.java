@@ -2,12 +2,14 @@ package com.jtbdefense.atak.mandown.ui;
 
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE;
+import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_PASSWORD;
 import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_UID;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -36,16 +38,19 @@ public class ConfirmWipeDialog {
                 return;
             }
             dialog.dismiss();
-            broadcastWipeEvent(mapItem);
+            EditText passwordInput = view.findViewById(R.id.wipePassword);
+            String password = passwordInput.getText().toString();
+            broadcastWipeEvent(mapItem, password);
             Toast.makeText(context, R.string.wipe_done, Toast.LENGTH_LONG).show();
         });
         builder.create().show();
     }
 
-    private static void broadcastWipeEvent(MapItem mapItem) {
+    private static void broadcastWipeEvent(MapItem mapItem, String password) {
         Intent intent = new Intent();
         intent.setAction(PERFORM_REMOTE_WIPE);
         intent.putExtra(PERFORM_REMOTE_WIPE_UID, mapItem.getUID());
+        intent.putExtra(PERFORM_REMOTE_WIPE_PASSWORD, password);
         getMapView().getContext().sendBroadcast(intent);
     }
 }

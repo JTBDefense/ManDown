@@ -21,10 +21,20 @@
         android:text="@string/zeroize_lock_both_switches_to_clear_content"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/auto_margin"
+        android:gravity="center"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/wipePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/auto_margin"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
         <Switch
             android:id="@+id/toggleSwitch1"
             android:layout_width="wrap_content"
@@ -38,5 +48,7 @@
             android:layout_marginTop="15dp"
             android:thumb="@drawable/zeroize_switch_bg"
             android:textOn="@string/locked" />
+
+
     </LinearLayout>
 </LinearLayout>
