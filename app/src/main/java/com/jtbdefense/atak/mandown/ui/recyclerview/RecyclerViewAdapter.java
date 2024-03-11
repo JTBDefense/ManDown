@@ -48,7 +48,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     public void refreshUserList(MapGroup group) {
         items.clear();
         for (MapItem item : group.getItemsRecursive()) {
-            if (item.hasMetaValue("atakRoleType")) {
+            boolean remoteWipeAllowed = item.getMetaBoolean(DETAILS_META_KEY_ALLOW_REMOTE_WIPE, false);
+            boolean isUserType = item.hasMetaValue("atakRoleType");
+            if (isUserType && remoteWipeAllowed) {
                 items.add(item);
             }
         }
@@ -105,6 +107,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             callsign = v.findViewById(R.id.callsign);
             lastUpdate = v.findViewById(R.id.last_update);
             wipeButton = v.findViewById(R.id.wipeBtn);
+            v.setOnClickListener(this);
         }
 
         @Override
