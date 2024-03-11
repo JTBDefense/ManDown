@@ -17,8 +17,8 @@
     <!-- Remote wipe confirmation dialog -->
     <string name="wipe">Wipe Data</string>
     <string name="locked">Locked</string>
-    <string name="zeroize_lock_both_switches_to_clear_content">Lock both switches to remotely wipe user data</string>
-    <string name="are_you_sure_wipe_data">Are you sure you want to remotely wipe user data?</string>
+    <string name="zeroize_lock_both_switches_to_clear_content">Type the password and lock both switches to remotely wipe user data</string>
+    <string name="are_you_sure_wipe_data">Are you sure you want to wipe user data?</string>
     <string name="wipe_done">Data wipe has been committed.</string>
     <string name="cancel">Cancel</string>
     <string name="password">Password</string>

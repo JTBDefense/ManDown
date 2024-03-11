@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/auto_margin2">
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/are_you_sure_wipe_data"
+        android:textColor="#FFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:text="@string/zeroize_lock_both_switches_to_clear_content"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/auto_margin"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/wipePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <Switch
+                android:id="@+id/toggleSwitch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="@string/locked"
+                android:thumb="@drawable/zeroize_switch_bg" />
+
+            <Switch
+                android:id="@+id/toggleSwitch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textOn="@string/locked"
+                android:thumb="@drawable/zeroize_switch_bg" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/auto_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+        <Button
+            android:id="@+id/wipeButton"
+            android:visibility="invisible"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@color/red"
+            android:textColor="#FFF"
+            android:layout_marginTop="35dp"
+            android:text="@string/wipe" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

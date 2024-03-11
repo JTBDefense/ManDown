@@ -1,5 +1,6 @@
 package com.jtbdefense.atak.mandown.ui;
 
+import static android.text.TextUtils.isEmpty;
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_PASSWORD;
@@ -8,7 +9,10 @@ import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_UID;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -25,25 +29,51 @@ public class ConfirmWipeDialog {
     private static void displayDialog(MapItem mapItem, Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getMapView().getContext());
         builder.setCancelable(false);
-        View view = PluginLayoutInflater.inflate(context, R.layout.delete_elevation_data_dialog);
+        View view = PluginLayoutInflater.inflate(context, R.layout.wipe_data_dialog);
         builder.setView(view);
         builder.setCancelable(true);
 
         builder.setNegativeButton(context.getString(R.string.cancel), null);
-        builder.setPositiveButton(context.getString(R.string.wipe), (dialog, which) -> {
-            final Switch switch1 = view.findViewById(R.id.toggleSwitch1);
-            final Switch switch2 = view.findViewById(R.id.toggleSwitch2);
-            if (!switch1.isChecked() || !switch2.isChecked()) {
-                Toast.makeText(context, R.string.zeroize_lock_both_switches_to_clear_content, Toast.LENGTH_LONG).show();
-                return;
+        AlertDialog alertDialog = builder.create();
+
+        final Switch switch1 = view.findViewById(R.id.toggleSwitch1);
+        final Switch switch2 = view.findViewById(R.id.toggleSwitch2);
+        EditText passwordInput = view.findViewById(R.id.wipePassword);
+        Button wipeButton = view.findViewById(R.id.wipeButton);
+
+        switch1.setOnCheckedChangeListener((buttonView, isChecked) -> validateRequiredFields(switch1, switch2, passwordInput, wipeButton));
+        switch2.setOnCheckedChangeListener((buttonView, isChecked) -> validateRequiredFields(switch1, switch2, passwordInput, wipeButton));
+        passwordInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-            dialog.dismiss();
-            EditText passwordInput = view.findViewById(R.id.wipePassword);
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateRequiredFields(switch1, switch2, passwordInput, wipeButton);
+            }
+        });
+
+        wipeButton.setOnClickListener(v -> {
             String password = passwordInput.getText().toString();
             broadcastWipeEvent(mapItem, password);
             Toast.makeText(context, R.string.wipe_done, Toast.LENGTH_LONG).show();
+            alertDialog.dismiss();
         });
-        builder.create().show();
+
+        alertDialog.show();
+    }
+
+    private static void validateRequiredFields(Switch switch1, Switch switch2, EditText passwordInput, Button wipeButton) {
+        if (switch1.isChecked() && switch2.isChecked() && !isEmpty(passwordInput.getText().toString())) {
+            wipeButton.setVisibility(View.VISIBLE);
+        } else {
+            wipeButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     private static void broadcastWipeEvent(MapItem mapItem, String password) {
