@@ -5,6 +5,8 @@
     <!-- description -->
     <string name="app_desc">ManDown plugin</string>
     <!-- application -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
     <string name="stats">Azimuth: %1$.2f \nPitch: %2$.2f \nRoll: %2$.2f \nIs flat: %4$b \nInactive for (1): %5$d seconds\nInactive for (2): %6$d seconds</string>
     <string name="inactivity_message">You are inactive for %1$d seconds already.</string>
     <string name="inactivity_title">Inactivity Warning</string>
@@ -20,6 +22,16 @@
     <string name="zeroize_lock_both_switches_to_clear_content">Type the password and lock both switches to remotely wipe user data</string>
     <string name="are_you_sure_wipe_data">Are you sure you want to wipe user data?</string>
     <string name="wipe_done">Data wipe has been committed.</string>
-    <string name="cancel">Cancel</string>
     <string name="password">Password</string>
+
+    <!--    No password info dialog-->
+    <string name="no_password_title">No wipe password</string>
+    <string name="no_password_content">The wipe password is not set. Provide the password in "Remote wipe password" field to allow remote wipe.</string>
+
+    <string name="password_required">Password is required</string>
+
+    <!--    Remote wipe status -->
+    <string name="remote_wipe_status">Remote wipe</string>
+    <string name="enabled">ENABLED</string>
+    <string name="disabled">DISABLED</string>
 </resources>

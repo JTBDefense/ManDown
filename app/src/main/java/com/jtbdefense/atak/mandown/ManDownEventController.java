@@ -1,6 +1,7 @@
 package com.jtbdefense.atak.mandown;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+import static android.text.TextUtils.isEmpty;
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.ALLOW_REMOTE_WIPE_COT_KEY;
@@ -11,6 +12,7 @@ import static com.jtbdefense.atak.mandown.domain.Events.*;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.*;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getInterval1Time;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getInterval2Time;
+import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getWipePassword;
 import static java.lang.String.format;
 
 import android.content.BroadcastReceiver;
@@ -95,8 +97,10 @@ public class ManDownEventController extends BroadcastReceiver {
         boolean allowRemoteWipeValue = intent.getBooleanExtra(ALLOW_REMOTE_WIPE_PREFERENCE_CHANGED_VALUE, false);
         Log.d(TAG, "Handling ALLOW_REMOTE_WIPE_PREFERENCE_CHANGED event with value " + allowRemoteWipeValue);
 
+        boolean allowRemoteWipe = allowRemoteWipeValue && !isEmpty(getWipePassword());
+
         CotDetail cd = new CotDetail(ALLOW_REMOTE_WIPE_COT_KEY);
-        cd.setAttribute(DETAILS_META_KEY_ALLOW_REMOTE_WIPE, Boolean.toString(allowRemoteWipeValue));
+        cd.setAttribute(DETAILS_META_KEY_ALLOW_REMOTE_WIPE, Boolean.toString(allowRemoteWipe));
 
         allowRemoteWipeCotHandler.toItemMetadata(getMapView().getSelfMarker(), null, cd);
         CotMapComponent.getInstance().addAdditionalDetail(cd.getElementName(), cd);

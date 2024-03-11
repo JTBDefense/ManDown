@@ -1,10 +1,12 @@
 package com.jtbdefense.atak.mandown.ui;
 
+import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDownReceiver;
@@ -20,12 +22,16 @@ public class ManDownDropDown extends DropDownReceiver implements com.atakmap.and
 
     private final View dropDownView;
     private final RecyclerViewAdapter userListViewAdapter;
+    private final TextView statusText;
+    private final Context context;
 
     public ManDownDropDown(final MapView mapView, final Context context) {
         super(mapView);
         dropDownView = PluginLayoutInflater.inflate(context, R.layout.drop_down_view);
+        this.context = context;
 
         RecyclerView userListRecyclerView = dropDownView.findViewById(R.id.rView);
+        statusText = dropDownView.findViewById(R.id.remote_wip_status);
         userListViewAdapter = new RecyclerViewAdapter(getMapView(), context);
         userListRecyclerView.setAdapter(userListViewAdapter);
     }
@@ -47,7 +53,15 @@ public class ManDownDropDown extends DropDownReceiver implements com.atakmap.and
     public void rerenderDropdown() {
         if (!isClosed()) {
             userListViewAdapter.refreshUserList(getMapView().getRootGroup());
+            refreshRemoteWipeStatus();
         }
+    }
+
+    private void refreshRemoteWipeStatus() {
+        boolean allowRemoteWipe = getMapView().getSelfMarker().getMetaBoolean(DETAILS_META_KEY_ALLOW_REMOTE_WIPE, false);
+        String status = context.getString(allowRemoteWipe ? R.string.enabled : R.string.disabled);
+        statusText.setText(status);
+        statusText.setTextColor(allowRemoteWipe ? Color.GREEN : Color.RED);
     }
 
     @Override
