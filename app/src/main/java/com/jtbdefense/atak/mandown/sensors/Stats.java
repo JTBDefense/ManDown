@@ -1,4 +1,4 @@
-package com.jtbdefense.atak.mandown.domain;
+package com.jtbdefense.atak.mandown.sensors;
 
 import java.io.Serializable;
 

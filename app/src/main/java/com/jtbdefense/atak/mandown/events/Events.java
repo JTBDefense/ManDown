@@ -1,4 +1,4 @@
-package com.jtbdefense.atak.mandown.domain;
+package com.jtbdefense.atak.mandown.events;
 
 public interface Events {
     String STATS_CHANGED = "com.jtbdefense.atak.mandown.STATS_CHANGED";

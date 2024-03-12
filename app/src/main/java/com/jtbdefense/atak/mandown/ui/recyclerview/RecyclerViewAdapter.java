@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.atakmap.android.contact.Contact;
+import com.atakmap.android.contact.ContactConnectorManager;
+import com.atakmap.android.contact.Contacts;
 import com.atakmap.android.maps.MapGroup;
 import com.atakmap.android.maps.MapItem;
 import com.atakmap.android.maps.MapTouchController;
@@ -54,7 +57,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
                 items.add(item);
             }
         }
-        notifyDataSetChanged();
     }
 
     @Override

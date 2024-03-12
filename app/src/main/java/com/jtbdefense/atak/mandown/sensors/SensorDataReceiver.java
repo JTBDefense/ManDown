@@ -4,10 +4,10 @@ import static android.hardware.Sensor.TYPE_ACCELEROMETER;
 import static android.hardware.Sensor.TYPE_MAGNETIC_FIELD;
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.atakmap.android.maps.MapView.getMapView;
-import static com.jtbdefense.atak.mandown.domain.Events.INTERVAL1_EXPIRED;
-import static com.jtbdefense.atak.mandown.domain.Events.INTERVAL2_EXPIRED;
-import static com.jtbdefense.atak.mandown.domain.Events.STATS_CHANGED;
-import static com.jtbdefense.atak.mandown.domain.Events.STATS_CHANGED_PARAM_STATS;
+import static com.jtbdefense.atak.mandown.events.Events.INTERVAL1_EXPIRED;
+import static com.jtbdefense.atak.mandown.events.Events.INTERVAL2_EXPIRED;
+import static com.jtbdefense.atak.mandown.events.Events.STATS_CHANGED;
+import static com.jtbdefense.atak.mandown.events.Events.STATS_CHANGED_PARAM_STATS;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.INTERVAL1_IGNORE_FLAT;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.INTERVAL2_IGNORE_FLAT;
 import static java.lang.System.arraycopy;
@@ -22,7 +22,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-import com.jtbdefense.atak.mandown.domain.Stats;
 import com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver;
 
 import java.util.Timer;

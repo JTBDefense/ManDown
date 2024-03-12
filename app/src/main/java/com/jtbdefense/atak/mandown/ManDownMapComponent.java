@@ -1,8 +1,10 @@
 package com.jtbdefense.atak.mandown;
 
 import static com.atakmap.android.maps.MapView.getMapView;
-import static com.jtbdefense.atak.mandown.domain.Events.*;
+import static com.jtbdefense.atak.mandown.events.Events.*;
+import static com.jtbdefense.atak.mandown.events.IntentBroadcaster.broadcastAllowRemoteWipePreference;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.PREFERENCES_KEYS;
+import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getAllowRemoteWipe;
 import static com.jtbdefense.atak.mandown.ui.ManDownDropDown.SHOW_DROP_DOWN;
 
 import android.content.Context;
@@ -14,8 +16,10 @@ import com.atakmap.android.dropdown.DropDownMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.app.preferences.ToolsPreferenceFragment;
+import com.atakmap.comms.CotServiceRemote;
 import com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler;
 import com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler;
+import com.jtbdefense.atak.mandown.events.ManDownEventController;
 import com.jtbdefense.atak.mandown.plugin.R;
 import com.jtbdefense.atak.mandown.preferences.ManDownPreferenceFragment;
 import com.jtbdefense.atak.mandown.sensors.SensorDataReceiver;
@@ -44,6 +48,7 @@ public class ManDownMapComponent extends DropDownMapComponent {
         registerEventController();
         registerPreferences();
         registerDropDownListUpdated();
+        broadcastAllowRemoteWipePreference(getAllowRemoteWipe());
     }
 
     @Override

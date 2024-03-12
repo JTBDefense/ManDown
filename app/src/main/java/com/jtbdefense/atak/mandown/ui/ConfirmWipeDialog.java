@@ -2,9 +2,9 @@ package com.jtbdefense.atak.mandown.ui;
 
 import static android.text.TextUtils.isEmpty;
 import static com.atakmap.android.maps.MapView.getMapView;
-import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE;
-import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_PASSWORD;
-import static com.jtbdefense.atak.mandown.domain.Events.PERFORM_REMOTE_WIPE_UID;
+import static com.jtbdefense.atak.mandown.events.Events.PERFORM_REMOTE_WIPE;
+import static com.jtbdefense.atak.mandown.events.Events.PERFORM_REMOTE_WIPE_PASSWORD;
+import static com.jtbdefense.atak.mandown.events.Events.PERFORM_REMOTE_WIPE_UID;
 
 import android.app.AlertDialog;
 import android.content.Context;

@@ -11,6 +11,7 @@ import com.atakmap.android.maps.MapItem;
 import com.atakmap.comms.CommsMapComponent;
 import com.atakmap.coremap.cot.event.CotDetail;
 import com.atakmap.coremap.cot.event.CotEvent;
+import com.jtbdefense.atak.mandown.services.EncryptionService;
 import com.jtbdefense.atak.mandown.services.WipeDataService;
 
 import java.util.Objects;
@@ -38,15 +39,26 @@ public class PerformRemoteWipeCotHandler extends CotDetailHandler {
         item.setMetaString(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, providedPassword);
 
         String myUid = getMapView().getSelfMarker().getUID();
-        if (myUid.equals(uidToRemoteWipe) && Objects.equals(getWipePassword(), providedPassword)) {
-            Log.d(TAG, "UIDs matches (" + uidToRemoteWipe + "), password matches (" + providedPassword + ") - start wipe");
+        String decryptedPassword = getDecryptedPassword(providedPassword);
+
+        if (myUid.equals(uidToRemoteWipe) && Objects.equals(getWipePassword(), decryptedPassword)) {
+            Log.d(TAG, "UIDs matches (" + uidToRemoteWipe + "), password matches (" + decryptedPassword + ") - start wipe");
             WipeDataService.wipeData();
         } else {
-            Log.d(TAG, "passwords NOT OK:" + getWipePassword() + "!=" + providedPassword);
+            Log.d(TAG, "passwords NOT OK:" + getWipePassword() + "!=" + decryptedPassword);
         }
 
         Log.d(TAG, "Setting metadata for performRemoteWipe to " + uidToRemoteWipe);
         return CommsMapComponent.ImportResult.SUCCESS;
+    }
+
+    private String getDecryptedPassword(String providedPassword) {
+        try {
+            return EncryptionService.decryptStrAndFromBase64(providedPassword);
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot decrypt password");
+            return "";
+        }
     }
 
     @Override

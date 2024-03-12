@@ -1,6 +1,7 @@
 package com.jtbdefense.atak.mandown.preferences;
 
 import static com.atakmap.android.maps.MapView.getMapView;
+import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.ALLOW_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.INTERVAL1_TIME;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.INTERVAL2_TIME;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.REMOTE_WIPE_PASSWORD;
@@ -15,6 +16,12 @@ public class ManDownPreferencesResolver {
         return PreferenceManager
                 .getDefaultSharedPreferences(getMapView().getContext())
                 .getString(REMOTE_WIPE_PASSWORD, null);
+    }
+
+    public static boolean getAllowRemoteWipe() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(getMapView().getContext())
+                .getBoolean(ALLOW_REMOTE_WIPE, false);
     }
     public static int getInterval1Time() {
         return resolveIntervalTime(60, INTERVAL1_TIME);

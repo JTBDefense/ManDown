@@ -1,4 +1,4 @@
-package com.jtbdefense.atak.mandown;
+package com.jtbdefense.atak.mandown.events;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.text.TextUtils.isEmpty;
@@ -8,11 +8,12 @@ import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.ALLOW_RE
 import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD;
 import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID;
 import static com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler.PERFORM_REMOTE_WIPE_COT_KEY;
-import static com.jtbdefense.atak.mandown.domain.Events.*;
+import static com.jtbdefense.atak.mandown.events.Events.*;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.*;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getInterval1Time;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getInterval2Time;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getWipePassword;
+import static com.jtbdefense.atak.mandown.services.EncryptionService.encryptStrAndToBase64;
 import static java.lang.String.format;
 
 import android.content.BroadcastReceiver;
@@ -26,14 +27,16 @@ import androidx.annotation.RequiresApi;
 
 import com.atakmap.android.cot.CotMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
+import com.atakmap.comms.CotDispatcher;
 import com.atakmap.comms.ReportingRate;
 import com.atakmap.coremap.cot.event.CotDetail;
 import com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler;
 import com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler;
-import com.jtbdefense.atak.mandown.domain.Stats;
+import com.jtbdefense.atak.mandown.sensors.Stats;
 import com.jtbdefense.atak.mandown.plugin.R;
 import com.jtbdefense.atak.mandown.services.AlertService;
 import com.jtbdefense.atak.mandown.services.ChatService;
+import com.jtbdefense.atak.mandown.services.EncryptionService;
 import com.jtbdefense.atak.mandown.services.WipeDataService;
 
 
@@ -78,19 +81,23 @@ public class ManDownEventController extends BroadcastReceiver {
     }
 
     private void handlePerformRemoteWipe(Intent intent) {
-        String uidToWipe = intent.getStringExtra(PERFORM_REMOTE_WIPE_UID);
-        String providedPassword = intent.getStringExtra(PERFORM_REMOTE_WIPE_PASSWORD);
-        Log.d(TAG, "Handling PERFORM_REMOTE_WIPE event for UUID " + uidToWipe);
+        try {
+            String uidToWipe = intent.getStringExtra(PERFORM_REMOTE_WIPE_UID);
+            String providedPassword = intent.getStringExtra(PERFORM_REMOTE_WIPE_PASSWORD);
+            Log.d(TAG, "Handling PERFORM_REMOTE_WIPE event for UUID " + uidToWipe);
 
-        CotDetail cd = new CotDetail(PERFORM_REMOTE_WIPE_COT_KEY);
-        cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, uidToWipe);
-        cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, providedPassword);
+            CotDetail cd = new CotDetail(PERFORM_REMOTE_WIPE_COT_KEY);
+            cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, uidToWipe);
+            cd.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, encryptStrAndToBase64(providedPassword));
 
-        performRemoteWipeCotHandler.toItemMetadata(getMapView().getSelfMarker(), null, cd);
-        CotMapComponent.getInstance().addAdditionalDetail(cd.getElementName(), cd);
+            performRemoteWipeCotHandler.toItemMetadata(getMapView().getSelfMarker(), null, cd);
+            CotMapComponent.getInstance().addAdditionalDetail(cd.getElementName(), cd);
 
-        Intent reportIntent = new Intent(ReportingRate.REPORT_LOCATION);
-        AtakBroadcast.getInstance().sendBroadcast(reportIntent.putExtra("reason", "detail update for performing remote wipe"));
+            Intent reportIntent = new Intent(ReportingRate.REPORT_LOCATION);
+            AtakBroadcast.getInstance().sendBroadcast(reportIntent.putExtra("reason", "detail update for performing remote wipe"));
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot create CoT details " + e.getMessage());
+        }
     }
 
     private void handleRemoteWipePreferenceChanged(Intent intent) {
