@@ -1,6 +1,7 @@
 package com.jtbdefense.atak.mandown.ui;
 
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
+import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.PREFERENCES_KEYS;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +48,7 @@ public class ManDownDropDown extends DropDownReceiver implements com.atakmap.and
                 return;
             }
             showDropDown(dropDownView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH, HALF_HEIGHT, false, this);
+            setAssociationKey(PREFERENCES_KEYS);
         }
     }
 
