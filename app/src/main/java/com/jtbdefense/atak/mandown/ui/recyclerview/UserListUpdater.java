@@ -21,7 +21,9 @@ public class UserListUpdater extends TimerTask {
 
     @Override
     public void run() {
-        Log.d(TAG, "Refreshing user list");
-        ((Activity) context).runOnUiThread(manDownDropDown::rerenderDropdown);
+        if (!manDownDropDown.isClosed()) {
+            Log.d(TAG, "Refreshing user list");
+            ((Activity) context).runOnUiThread(manDownDropDown::rerenderDropdown);
+        }
     }
 }

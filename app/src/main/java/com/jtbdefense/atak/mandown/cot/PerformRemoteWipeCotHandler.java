@@ -29,26 +29,22 @@ public class PerformRemoteWipeCotHandler extends CotDetailHandler {
 
     @Override
     public CommsMapComponent.ImportResult toItemMetadata(MapItem item, CotEvent event, CotDetail detail) {
+        Log.d(TAG, "Handling CoT event " + PERFORM_REMOTE_WIPE_COT_KEY + " for map item " + item.getTitle());
         String uidToRemoteWipe = detail.getAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID);
         String providedPassword = detail.getAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD);
 
-        if (isEmpty(uidToRemoteWipe)) {
+        if (isEmpty(uidToRemoteWipe) || isEmpty(providedPassword)) {
             return CommsMapComponent.ImportResult.FAILURE;
         }
-        item.setMetaString(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, uidToRemoteWipe);
-        item.setMetaString(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, providedPassword);
 
         String myUid = getMapView().getSelfMarker().getUID();
         String decryptedPassword = getDecryptedPassword(providedPassword);
+        boolean passwordsEquals = Objects.equals(getWipePassword(), decryptedPassword);
 
-        if (myUid.equals(uidToRemoteWipe) && Objects.equals(getWipePassword(), decryptedPassword)) {
-            Log.d(TAG, "UIDs matches (" + uidToRemoteWipe + "), password matches (" + decryptedPassword + ") - start wipe");
+        if (myUid.equals(uidToRemoteWipe) && passwordsEquals) {
             WipeDataService.wipeData();
-        } else {
-            Log.d(TAG, "passwords NOT OK:" + getWipePassword() + "!=" + decryptedPassword);
         }
 
-        Log.d(TAG, "Setting metadata for performRemoteWipe to " + uidToRemoteWipe);
         return CommsMapComponent.ImportResult.SUCCESS;
     }
 
@@ -63,11 +59,6 @@ public class PerformRemoteWipeCotHandler extends CotDetailHandler {
 
     @Override
     public boolean toCotDetail(MapItem item, CotEvent event, CotDetail cotDetail) {
-        String uidToWipe = item.getMetaString(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, null);
-        String password = item.getMetaString(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, null);
-        cotDetail.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_UID, uidToWipe);
-        cotDetail.setAttribute(DETAILS_META_KEY_PERFORM_REMOTE_WIPE_PASSWORD, password);
-        Log.d(TAG, "Setting cotDetail for performRemoteWipe to " + uidToWipe);
         return true;
     }
 }

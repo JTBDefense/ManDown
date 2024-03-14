@@ -16,7 +16,6 @@ import com.atakmap.android.dropdown.DropDownMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.app.preferences.ToolsPreferenceFragment;
-import com.atakmap.comms.CotServiceRemote;
 import com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler;
 import com.jtbdefense.atak.mandown.cot.PerformRemoteWipeCotHandler;
 import com.jtbdefense.atak.mandown.events.ManDownEventController;
@@ -72,7 +71,7 @@ public class ManDownMapComponent extends DropDownMapComponent {
     }
 
     private void registerEventController() {
-        manDownEventController = new ManDownEventController(allowRemoteWipeCotHandler, performRemoteWipeCotHandler);
+        manDownEventController = new ManDownEventController(allowRemoteWipeCotHandler);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(STATS_CHANGED);
         intentFilter.addAction(INTERVAL1_EXPIRED);

@@ -4,6 +4,7 @@ import static android.text.TextUtils.isEmpty;
 import static com.jtbdefense.atak.mandown.events.IntentBroadcaster.broadcastAllowRemoteWipePreference;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.ALLOW_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.REMOTE_WIPE_PASSWORD;
+import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getAllowRemoteWipe;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferencesResolver.getWipePassword;
 
 import android.annotation.SuppressLint;
@@ -54,6 +55,7 @@ public class ManDownPreferenceFragment extends PluginPreferenceFragment {
                 Toast.makeText(staticPluginContext, R.string.password_required, Toast.LENGTH_LONG).show();
                 return false;
             }
+            broadcastAllowRemoteWipePreference(getAllowRemoteWipe());
             return true;
         });
     }
