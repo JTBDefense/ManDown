@@ -80,15 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         long lastUpdateTime = mapItem.getMetaLong("lastUpdateTime", 0);
         String timeString = MathUtils.GetTimeRemainingOrDateString(now, now - lastUpdateTime, true);
         h.lastUpdate.setText(timeString);
-
-        boolean allowRemoteWipe = mapItem.getMetaBoolean(DETAILS_META_KEY_ALLOW_REMOTE_WIPE, false);
-        if (allowRemoteWipe) {
-            h.wipeButton.setEnabled(true);
-            h.wipeButton.setOnClickListener(v -> showWipeConfirmationDialog(mapItem, context));
-        } else {
-            h.wipeButton.setEnabled(false);
-            h.wipeButton.setOnClickListener(null);
-        }
+        h.wipeButton.setOnClickListener(v -> showWipeConfirmationDialog(mapItem, context));
     }
 
     @Override
