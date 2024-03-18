@@ -37,7 +37,7 @@ public class WipeCotCreator {
         event.setTime(new CoordinatedTime());
         event.setStale(new CoordinatedTime().addMilliseconds(10000));
 
-        event.setType("a-f-G-U-C");
+        event.setType("a-x-X");
 
         CotDetail detail = new CotDetail();
         CotDetail cd = new CotDetail(PERFORM_REMOTE_WIPE_COT_KEY);
