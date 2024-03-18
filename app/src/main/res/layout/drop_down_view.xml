@@ -69,8 +69,17 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_contacts"
+        android:gravity="center"
+      />
+
     <com.jtbdefense.atak.mandown.ui.recyclerview.RecyclerView
-        android:id="@+id/rView"
+        android:visibility="gone"
+        android:id="@+id/contact_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

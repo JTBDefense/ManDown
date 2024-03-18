@@ -15,6 +15,7 @@
     <string name="preferences_name">ManDown Preferences</string>
     <string name="preferences_description">ManDown Preferences</string>
     <string name="chat_message">I\'m inactive for %1$d seconds.</string>
+    <string name="no_contacts">No contacts with remote wipe enabled</string>
 
     <!-- Remote wipe confirmation dialog -->
     <string name="wipe">Wipe Data</string>

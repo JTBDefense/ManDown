@@ -1,5 +1,6 @@
 package com.jtbdefense.atak.mandown.ui;
 
+import static android.view.View.*;
 import static com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler.DETAILS_META_KEY_ALLOW_REMOTE_WIPE;
 import static com.jtbdefense.atak.mandown.preferences.ManDownPreferences.PREFERENCES_KEYS;
 
@@ -31,7 +32,7 @@ public class ManDownDropDown extends DropDownReceiver implements com.atakmap.and
         dropDownView = PluginLayoutInflater.inflate(context, R.layout.drop_down_view);
         this.context = context;
 
-        RecyclerView userListRecyclerView = dropDownView.findViewById(R.id.rView);
+        RecyclerView userListRecyclerView = dropDownView.findViewById(R.id.contact_list);
         statusText = dropDownView.findViewById(R.id.remote_wip_status);
         userListViewAdapter = new RecyclerViewAdapter(getMapView(), context);
         userListRecyclerView.setAdapter(userListViewAdapter);
@@ -56,6 +57,13 @@ public class ManDownDropDown extends DropDownReceiver implements com.atakmap.and
         if (!isClosed()) {
             userListViewAdapter.refreshUserList(getMapView().getRootGroup());
             refreshRemoteWipeStatus();
+        }
+        if(userListViewAdapter.getItemCount() == 0) {
+            dropDownView.findViewById(R.id.contact_list).setVisibility(GONE);
+            dropDownView.findViewById(R.id.empty_state).setVisibility(VISIBLE);
+        } else {
+            dropDownView.findViewById(R.id.contact_list).setVisibility(VISIBLE);
+            dropDownView.findViewById(R.id.empty_state).setVisibility(GONE);
         }
     }
 
