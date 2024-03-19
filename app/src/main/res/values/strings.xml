@@ -3,7 +3,7 @@
     <!-- App -->
     <string name="app_name">ManDown</string>
     <!-- description -->
-    <string name="app_desc">ManDown plugin</string>
+    <string name="app_desc">ManDown plugin detects lack of movement of the device and performs configured actions. </string>
     <!-- application -->
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>

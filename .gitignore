@@ -37,3 +37,4 @@ google-services.json
 /app/libs/
 app/build.gradle.bak
 *.aab
+app/build.gradle
