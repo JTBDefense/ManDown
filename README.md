@@ -22,7 +22,7 @@ The wipe can be performed from any phone on the same server that has the ManDown
 
 ## Download
 
-
+https://github.com/JTBDefense/ManDown/releases
 
 
 
