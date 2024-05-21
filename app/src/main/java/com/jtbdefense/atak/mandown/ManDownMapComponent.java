@@ -10,6 +10,7 @@ import static com.jtbdefense.atak.mandown.ui.ManDownDropDown.SHOW_DROP_DOWN;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 
 import com.atakmap.android.cot.detail.CotDetailManager;
 import com.atakmap.android.dropdown.DropDownMapComponent;
@@ -78,7 +79,11 @@ public class ManDownMapComponent extends DropDownMapComponent {
         intentFilter.addAction(INTERVAL2_EXPIRED);
         intentFilter.addAction(ALLOW_REMOTE_WIPE_PREFERENCE_CHANGED);
         intentFilter.addAction(PERFORM_REMOTE_WIPE);
-        context.registerReceiver(manDownEventController, intentFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.registerReceiver(manDownEventController, intentFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(manDownEventController, intentFilter);
+        }
     }
 
     private void registerPreferences() {
