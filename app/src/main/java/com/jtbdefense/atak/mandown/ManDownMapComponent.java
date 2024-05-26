@@ -1,5 +1,6 @@
 package com.jtbdefense.atak.mandown;
 
+import static android.content.Context.*;
 import static com.atakmap.android.maps.MapView.getMapView;
 import static com.jtbdefense.atak.mandown.events.Events.*;
 import static com.jtbdefense.atak.mandown.events.IntentBroadcaster.broadcastAllowRemoteWipePreference;
@@ -80,7 +81,7 @@ public class ManDownMapComponent extends DropDownMapComponent {
         intentFilter.addAction(ALLOW_REMOTE_WIPE_PREFERENCE_CHANGED);
         intentFilter.addAction(PERFORM_REMOTE_WIPE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.registerReceiver(manDownEventController, intentFilter, Context.RECEIVER_NOT_EXPORTED);
+            context.registerReceiver(manDownEventController, intentFilter, RECEIVER_EXPORTED);
         } else {
             context.registerReceiver(manDownEventController, intentFilter);
         }
