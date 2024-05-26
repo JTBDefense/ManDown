@@ -18,18 +18,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
-import com.atakmap.android.cot.CotMapComponent;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.comms.ReportingRate;
 import com.atakmap.coremap.cot.event.CotDetail;
 import com.atakmap.coremap.cot.event.CotEvent;
 import com.jtbdefense.atak.mandown.cot.AllowRemoteWipeCotHandler;
-import com.jtbdefense.atak.mandown.cot.WipeCotCreator;
 import com.jtbdefense.atak.mandown.plugin.R;
 import com.jtbdefense.atak.mandown.sensors.Stats;
 import com.jtbdefense.atak.mandown.services.AlertService;
@@ -49,7 +44,6 @@ public class ManDownEventController extends BroadcastReceiver {
     public void destroy() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
